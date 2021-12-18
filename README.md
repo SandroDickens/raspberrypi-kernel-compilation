@@ -29,18 +29,19 @@ make[1]: *** Waiting for unfinished jobs....
 ```
 sudo dnf install openssl-devel
 ```
+
+## 复制内核到SD卡
 插入SD卡，将SD卡的boot分区挂载到/mnt/boot，rootfs挂载到/mnt/rootfs
-
-复制内核到SD卡
-$sudo cp arch/arm64/boot/Image /mnt/boot/kernel8.img
-
-将arch/arm64/boot/dts/broadcom/下的
-bcm2710-rpi-3-b.dtb
-bcm2837-rpi-3-b.dtb
-bcm2710-rpi-3-b-plus.dtb
-复制到/media/nereus/boot/
 ```
-aa
+$ sudo cp arch/arm64/boot/Image /mnt/boot/kernel8.img
+```
+
+将arch/arm64/boot/dts/broadcom/下的dtb复制到SD卡
+```
+# Pi 4
+$ sudo cp arch/arm64/boot/dts/broadcom/bcm2711-rpi-*.dtb /mnt/boot/
+# 全部复制
+$ sudo cp arch/arm64/boot/dts/broadcom/*.dtb /mnt/boot/
 ```
 
 ## 修改/boot/config.txt加上（如果没有的话）
@@ -50,7 +51,8 @@ kernel=kernel8.img
 
 ## 下面的命令在必须以root运行，不能是sudo!
 ```
-# make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=/mnt/rootfs modules_install
+# make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- INSTALL_MOD_PATH=/mnt/rootfs modules_install
+# make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- INSTALL_MOD_PATH=/run/media/nereus/rootfs modules_install
 ```
 
 ## umount SD卡，结束
