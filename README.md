@@ -8,6 +8,7 @@ x86_64 Linux hosted cross compilers -> AArch64 GNU/Linux target (aarch64-none-li
 
 ## 配置
 ```
+touch .scmversion
 make ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- bcm2711_defconfig
 ```
 
